@@ -21,3 +21,4 @@ $ df -i
 Filesystem     Inodes IUsed IFree IUse% Mounted on
 /dev/sda2      1228800 12345 1216455  2%
 /dev/sda1       65536   166  65370  1%
+

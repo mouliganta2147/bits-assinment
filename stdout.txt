@@ -1,0 +1,12 @@
+total 36
+-rw-rw-rw-  1 codespace root        16 Jul  3 16:29 README.md
+-rw-rw-rw-  1 codespace codespace   16 Jul  3 17:17 app.log
+-rw-rw-rw-  1 codespace codespace   21 Jul  3 17:17 hardlink.txt
+drwxrwxrwx+ 2 codespace codespace 4096 Jul  3 17:17 q1
+drwxrwxrwx+ 2 codespace codespace 4096 Jul  3 17:17 q2
+drwxrwxrwx+ 2 codespace codespace 4096 Jul  3 17:17 q3
+drwxrwxrwx+ 2 codespace codespace 4096 Jul  3 17:17 q4
+drwxrwxrwx+ 2 codespace codespace 4096 Jul  3 16:32 q5
+drwxr-x---+ 5 codespace codespace 4096 Jul  3 16:40 secure_workspace
+-rw-rw-rw-  1 codespace codespace    0 Jul  3 17:17 stdout.txt
+lrwxrwxrwx  1 codespace codespace   12 Jul  3 17:17 symlink.txt -> original.txt
