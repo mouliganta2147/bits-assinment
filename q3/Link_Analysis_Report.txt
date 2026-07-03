@@ -1,0 +1,58 @@
+Question 3: File System and Link Analysis
+
+$ rm -f original.txt hardlink.txt symlink.txt
+$ echo "Linux link test file" > original.txt
+$ ln original.txt hardlink.txt
+$ ln -s original.txt symlink.txt
+
+$ ls -li original.txt hardlink.txt symlink.txt
+1310805 -rw-rw-rw- 2 codespace codespace 21 Jul  3 17:17 hardlink.txt
+1310805 -rw-rw-rw- 2 codespace codespace 21 Jul  3 17:17 original.txt
+1310806 lrwxrwxrwx 1 codespace codespace 12 Jul  3 17:17 symlink.txt -> original.txt
+
+$ stat original.txt hardlink.txt symlink.txt
+  File: original.txt
+  Size: 21        	Blocks: 8          IO Block: 4096   regular file
+Device: 7,4	Inode: 1310805     Links: 2
+Access: (0666/-rw-rw-rw-)  Uid: ( 1000/codespace)   Gid: ( 1000/codespace)
+Access: 2026-07-03 17:17:50.034259936 +0000
+Modify: 2026-07-03 17:17:50.034259936 +0000
+Change: 2026-07-03 17:17:50.036259936 +0000
+ Birth: 2026-07-03 17:17:50.034259936 +0000
+  File: hardlink.txt
+  Size: 21        	Blocks: 8          IO Block: 4096   regular file
+Device: 7,4	Inode: 1310805     Links: 2
+Access: (0666/-rw-rw-rw-)  Uid: ( 1000/codespace)   Gid: ( 1000/codespace)
+Access: 2026-07-03 17:17:50.034259936 +0000
+Modify: 2026-07-03 17:17:50.034259936 +0000
+Change: 2026-07-03 17:17:50.036259936 +0000
+ Birth: 2026-07-03 17:17:50.034259936 +0000
+  File: symlink.txt -> original.txt
+  Size: 12        	Blocks: 0          IO Block: 4096   symbolic link
+Device: 7,4	Inode: 1310806     Links: 1
+Access: (0777/lrwxrwxrwx)  Uid: ( 1000/codespace)   Gid: ( 1000/codespace)
+Access: 2026-07-03 17:17:50.045259937 +0000
+Modify: 2026-07-03 17:17:50.044259937 +0000
+Change: 2026-07-03 17:17:50.044259937 +0000
+ Birth: 2026-07-03 17:17:50.044259937 +0000
+
+$ cat original.txt
+Linux link test file
+
+$ cat hardlink.txt
+Linux link test file
+
+$ cat symlink.txt
+Linux link test file
+
+$ rm original.txt
+
+$ ls -li hardlink.txt symlink.txt
+1310805 -rw-rw-rw- 1 codespace codespace 21 Jul  3 17:17 hardlink.txt
+1310806 lrwxrwxrwx 1 codespace codespace 12 Jul  3 17:17 symlink.txt -> original.txt
+
+$ cat hardlink.txt
+Linux link test file
+
+$ cat symlink.txt
+

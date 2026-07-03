@@ -1,0 +1,33 @@
+Question 1: Linux Environment Verification
+
+$ whoami
+codespace
+
+$ groups
+codespace pipx python oryx golang docker sdkman rvm php conda nvs nvm hugo ssh
+
+$ echo "$SHELL"
+/bin/bash
+
+$ pwd
+/workspaces/bits-assinment
+
+$ ls -ls
+total 48
+4 -rw-rw-rw-  1 codespace root        16 Jul  3 16:29 README.md
+4 -rw-rw-rw-  1 codespace codespace   16 Jul  3 16:53 app.log
+4 -rw-rw-rw-  1 codespace codespace  875 Jul  3 16:56 combined.txt
+4 -rw-rw-rw-  1 codespace codespace   21 Jul  3 17:17 hardlink.txt
+4 drwxrwxrwx+ 2 codespace codespace 4096 Jul  3 17:17 q1
+4 drwxrwxrwx+ 2 codespace codespace 4096 Jul  3 17:17 q2
+4 drwxrwxrwx+ 2 codespace codespace 4096 Jul  3 17:17 q3
+4 drwxrwxrwx+ 2 codespace codespace 4096 Jul  3 16:32 q4
+4 drwxrwxrwx+ 2 codespace codespace 4096 Jul  3 16:32 q5
+4 drwxr-x---+ 5 codespace codespace 4096 Jul  3 16:40 secure_workspace
+4 -rw-rw-rw-  1 codespace codespace   64 Jul  3 16:56 stderr.txt
+4 -rw-rw-rw-  1 codespace codespace  683 Jul  3 16:56 stdout.txt
+0 lrwxrwxrwx  1 codespace codespace   12 Jul  3 17:17 symlink.txt -> original.txt
+
+$ curl -s --max-time 10 https://youtube.com > /dev/null && echo "Network: youtube.com reachable"
+Network: youtube.com reachable
+

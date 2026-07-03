@@ -1,0 +1,65 @@
+Question 4: File Access and I/O Investigation
+
+$ rm -f app.log stdout.txt stderr.txt combined.txt
+$ echo "sample log line" > app.log
+
+$ lsof | head -n 20
+COMMAND     PID   TID TASKCMD        USER   FD      TYPE             DEVICE  SIZE/OFF    NODE NAME
+docker-in     1                 codespace  cwd       DIR               0,45      4096 1101733 /
+docker-in     1                 codespace  rtd       DIR               0,45      4096 1101733 /
+docker-in     1                 codespace  txt       REG                8,1    845272  774629 /usr/sbin/docker-init
+docker-in     1                 codespace    0u      CHR                1,3       0t0      49 /dev/null
+docker-in     1                 codespace    1w     FIFO               0,14       0t0   51623 pipe
+docker-in     1                 codespace    2w     FIFO               0,14       0t0   51624 pipe
+sh            6                 codespace  cwd       DIR               0,45      4096 1101733 /
+sh            6                 codespace  rtd       DIR               0,45      4096 1101733 /
+sh            6                 codespace  txt       REG               0,45    129784 1048830 /usr/bin/dash
+sh            6                 codespace  mem       REG               0,45   2125328 1049464 /usr/lib/x86_64-linux-gnu/libc.so.6
+sh            6                 codespace  mem       REG               0,45    236616 1049444 /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+sh            6                 codespace    0u      CHR                1,3       0t0      49 /dev/null
+sh            6                 codespace    1w     FIFO               0,14       0t0   51623 pipe
+sh            6                 codespace    2w     FIFO               0,14       0t0   51624 pipe
+sshd        222                      root  cwd   unknown                                      /proc/222/cwd (readlink: Permission denied)
+sshd        222                      root  rtd   unknown                                      /proc/222/root (readlink: Permission denied)
+sshd        222                      root  txt   unknown                                      /proc/222/exe (readlink: Permission denied)
+sshd        222                      root NOFD                                                /proc/222/fd (opendir: Permission denied)
+dockerd     256                      root  cwd   unknown                                      /proc/222/cwd (readlink: Permission denied)
+
+$ exec 3<app.log
+$ lsof -p $$ | grep app.log
+generate_ 44405 codespace    3r   REG    7,4       16 1310807 /workspaces/bits-assinment/app.log
+
+$ ls -l /proc/$$/fd | grep app.log
+lr-x------ 1 codespace codespace 64 Jul  3 17:17 3 -> /workspaces/bits-assinment/app.log
+
+$ ls -l /proc/$$/fd
+total 0
+lrwx------ 1 codespace codespace 64 Jul  3 17:17 0 -> /dev/pts/5
+l-wx------ 1 codespace codespace 64 Jul  3 17:17 1 -> /workspaces/bits-assinment/q4/IO_Investigation_Report.txt
+lrwx------ 1 codespace codespace 64 Jul  3 17:17 10 -> /dev/pts/5
+lrwx------ 1 codespace codespace 64 Jul  3 17:17 2 -> /dev/pts/5
+lr-x------ 1 codespace codespace 64 Jul  3 17:17 3 -> /workspaces/bits-assinment/app.log
+l-wx------ 1 codespace codespace 64 Jul  3 17:17 6 -> /dev/null
+
+$ ls -l > stdout.txt
+$ ls /not_a_real_path 2> stderr.txt
+$ (ls -l && ls /not_a_real_path) > combined.txt 2>&1
+
+$ ulimit -a
+core file size          (blocks, -c) 0
+data seg size           (kbytes, -s) unlimited
+a scheduling priority             (-e) 0
+file size               (blocks, -f) unlimited
+pending signals                 (-i) 127
+max locked memory       (kbytes, -l) 64
+max memory size         (kbytes, -m) unlimited
+open files                      (-n) 1048576
+pipe size            (512 bytes, -p) 8
+POSIX message queues     (kbytes, -q) 0
+stack size             (kbytes, -s) 8192
+cpu time               (seconds, -c) unlimited
+max user processes              (-u) 127
+virtual memory         (kbytes, -v) unlimited
+file locks                      (-f) unlimited
+
+$ exec 3<&-
